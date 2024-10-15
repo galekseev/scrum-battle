@@ -131,11 +131,11 @@ class Battleship {
     }
 
     InitializeGame() {
-        this.myFleet = this.InitializeFixedFleetForTest();
-        this.enemyFleet = this.InitializeFixedFleetForTest();
+        // this.myFleet = this.InitializeFixedFleetForTest();
+        // this.enemyFleet = this.InitializeFixedFleetForTest();
 
-        // this.InitializeMyFleet();
-        // this.InitializeEnemyFleet();
+        this.InitializeMyFleet();
+        this.InitializeEnemyFleet();
     }
 
     InitializeMyFleet() {
