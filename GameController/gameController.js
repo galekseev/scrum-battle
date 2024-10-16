@@ -2,6 +2,8 @@ const Ship = require("./ship.js");
 
 class GameController {
 
+    static PREDEFINED_FLEETS_NUM = 1;
+
     static InitializeShips() {
         var colors = require("cli-color");
         const Ship = require("./ship.js");

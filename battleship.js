@@ -103,7 +103,7 @@ class Battleship {
             }
 
             if (this.getFleetStatus(this.myFleet) == "Lost") {
-                console.log(cliColor.green("Congratulations! You have won the battle!"));
+                console.log(cliColor.green("!"));
                 break;
             }
         }
@@ -134,10 +134,12 @@ class Battleship {
         // this.myFleet = this.InitializeFixedFleetForTest();
         // this.enemyFleet = this.InitializeFixedFleetForTest();
 
-        let pos = Math.floor(Math.random() * 5);
-
         this.InitializeMyFleet();
-        this.InitializeEnemyFleet();
+
+        const fleets = gameController.InitializeFleets();
+        let pos = Math.floor(Math.random() * gameController.PREDEFINED_FLEETS_NUM);
+        this.enemyFleet = fleets[pos];
+        // this.InitializeEnemyFleet();
     }
 
     InitializeMyFleet() {
@@ -170,7 +172,7 @@ class Battleship {
         return fleet;
     }
 
-    
+
 
     InitializeFixedFleet() {
         let fleet = gameController.InitializeShips();
