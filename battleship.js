@@ -236,7 +236,7 @@ _,T-)  /    / ^!           !^ \\
 
     checkPositionTaken(pos, ship, fleet) {
         let positions = [];
-        for (let i = 0; i < fleet.size; i++) {
+        for (let i = 0; i < fleet.length; i++) {
             for (let j = 0; j < fleet[i].positions.length; j++) {
                 positions.push(JSON.stringify(fleet[i].positions[j]));
             }
