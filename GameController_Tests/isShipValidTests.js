@@ -23,3 +23,11 @@ describe('isShipValidTests', function () {
     assert.ok(!actual);
   });
 });
+
+describe('Fleet generation test', function () {
+  it('should return a fleet of pre-defined ships', function () {
+    var actual = gameController.InitializeFleets();
+    console.log(actual);
+    assert.equal(actual.length, gameController.PREDEFINED_FLEETS_NUM);
+  });
+});

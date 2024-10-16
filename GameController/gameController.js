@@ -2,7 +2,7 @@ const Ship = require("./ship.js");
 
 class GameController {
 
-    static PREDEFINED_FLEETS_NUM = 1;
+    static PREDEFINED_FLEETS_NUM = 5;
 
     static InitializeShips() {
         var colors = require("cli-color");
@@ -26,27 +26,7 @@ class GameController {
             this.InitializeShips()
         ]
 
-        fleets[0][0].addPosition(new position(letters.B, 4));
-        fleets[0][0].addPosition(new position(letters.B, 5));
-        fleets[0][0].addPosition(new position(letters.B, 6));
-        fleets[0][0].addPosition(new position(letters.B, 7));
-        fleets[0][0].addPosition(new position(letters.B, 8));
-
-        fleets[0][1].addPosition(new position(letters.E, 6));
-        fleets[0][1].addPosition(new position(letters.E, 7));
-        fleets[0][1].addPosition(new position(letters.E, 8));
-        fleets[0][1].addPosition(new position(letters.E, 9));
-
-        fleets[0][2].addPosition(new position(letters.A, 3));
-        fleets[0][2].addPosition(new position(letters.B, 3));
-        fleets[0][2].addPosition(new position(letters.C, 3));
-
-        fleets[0][3].addPosition(new position(letters.F, 8));
-        fleets[0][3].addPosition(new position(letters.G, 8));
-        fleets[0][3].addPosition(new position(letters.H, 8));
-
-        fleets[0][4].addPosition(new position(letters.C, 5));
-        fleets[0][4].addPosition(new position(letters.C, 6));
+        return fleets;
     }
 
     static InitializeShipsForTest() {
