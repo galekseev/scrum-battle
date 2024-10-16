@@ -134,6 +134,8 @@ class Battleship {
         // this.myFleet = this.InitializeFixedFleetForTest();
         // this.enemyFleet = this.InitializeFixedFleetForTest();
 
+        let pos = Math.floor(Math.random() * 5);
+
         this.InitializeMyFleet();
         this.InitializeEnemyFleet();
     }
@@ -168,6 +170,7 @@ class Battleship {
         return fleet;
     }
 
+    
 
     InitializeFixedFleet() {
         let fleet = gameController.InitializeShips();
