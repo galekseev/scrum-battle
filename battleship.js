@@ -200,7 +200,7 @@ class Battleship {
 
             } while(!pos.isValid || !isInsideBoundaries || isPositionTaken);
             
-            console.log(ship);
+            //console.log(ship);
         }
     }
 
