@@ -4,8 +4,9 @@ const gameController = require("./GameController/gameController.js");
 const cliColor = require('cli-color');
 const beep = require('beepbeep');
 const position = require("./GameController/position.js");
-const letters = require("./GameController/letters.js");
+const { letters, direction  } = require("./GameController/letters.js");
 const fixedFleets = require("./presetFleet.js");
+const { dir } = require('console');
 let telemetryWorker;
 
 class Battleship {
@@ -145,17 +146,136 @@ class Battleship {
 
         console.log(cliColor.cyan("Please position your fleet (Game board size is from A to H and 1 to 8) :"));
 
-        this.myFleet.forEach(function (ship) {
+        for (let ship of this.myFleet) {
             console.log();
             console.log(cliColor.cyan(`Please enter the positions for the ${ship.name} (size: ${ship.size})`));
-            for (var i = 1; i < ship.size + 1; i++) {
-                    console.log(cliColor.cyan(`Enter position ${i} of ${ship.size} (i.e A3):`));
-                    const position = readline.question();
-                    telemetryWorker.postMessage({eventName: 'Player_PlaceShipPosition', properties:  {Position: position, Ship: ship.name, PositionInShip: i}});
-                    ship.addPosition(Battleship.ParsePosition(position));
-            }
-        })
+
+            let pos;
+            let isInsideBoundaries;
+            let isPositionTaken;
+            
+            do {
+            
+                console.log(cliColor.cyan(`Enter position and direction (i.e A3D):`));
+                const input = readline.question();
+                
+                pos = this.parsePosition(input);
+
+                if (!pos.isValid){
+                    console.log(cliColor.red("Invalid position. Please try again"));
+                    continue;
+                }
+
+                isInsideBoundaries = this.checkBoundaries(pos, ship);
+
+                if (!isInsideBoundaries) {
+                    console.log(cliColor.red("Invalid position. Please try again"));
+                    continue;
+                }
+
+                isPositionTaken = this.checkPositionTaken(pos, ship, this.myFleet);
+                if (isPositionTaken) {
+                    console.log(cliColor.red("Position already taken. Please try again"));
+                    continue;
+                }
+
+                for (var i = 0; i < ship.size; i++) {
+                    let newPosition = new position(pos.position.row, pos.position.column);
+                    switch (pos.direction) {
+                        case direction.U:
+                            newPosition.column = newPosition.column - i;
+                            break;
+                        case direction.D:
+                            newPosition.column = newPosition.column + i;
+                            break;
+                        case direction.L:
+                            newPosition.row = newPosition.row - i;
+                            break;
+                        case direction.R:
+                            newPosition.row = newPosition.row + i;
+                            break;
+                    }
+                    ship.addPosition(newPosition);
+                }
+
+            } while(!pos.isValid || !isInsideBoundaries || isPositionTaken);
+            
+            console.log(ship);
+        }
     }
+
+    checkPositionTaken(pos, ship, fleet) {
+        let positions = [];
+        for (let i = 0; i < fleet.size; i++) {
+            for (let j = 0; j < fleet[i].positions.length; j++) {
+                positions.push(JSON.stringify(fleet[i].positions[j]));
+            }
+        }
+
+        for (let i = 0; i < ship.size; i++) {
+            let newPosition = new position(pos.position.row, pos.position.column);
+            switch (pos.direction) {
+                case direction.U:
+                    newPosition.column = newPosition.column - i;
+                    break;
+                case direction.D:
+                    newPosition.column = newPosition.column + i;
+                    break;
+                case direction.L:
+                    newPosition.row = newPosition.row - i;
+                    break;
+                case direction.R:
+                    newPosition.row = newPosition.row + i;
+                    break;
+            }
+
+            if (positions.indexOf(JSON.stringify(newPosition)) != -1) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+    
+    checkBoundaries(pos, ship) {
+        switch (pos.direction) {
+            case direction.U:
+                if (pos.position.column - ship.size < 0) {
+                    return false;
+                }
+                break;
+            case direction.D:
+                if (pos.position.column + ship.size > 8) {
+                    return false;
+                }
+                break;
+            case direction.L:
+                if (pos.position.row - ship.size < 0) {
+                    return false;
+                }
+                break;
+            case direction.R:
+                if (pos.position.row + ship.size > 8) {
+                    return false;
+                }
+                break;
+        }
+        return true;
+    }
+
+    parsePosition(input) {
+        var letter = letters.get(input.toUpperCase().substring(0, 1));
+        //console.log("Letter: "+letter);
+        var number = parseInt(input.substring(1, 2), 10);
+        //console.log("Number: "+number);
+        var dirLetter = direction.get(input.toUpperCase().substring(2, 3));
+        //console.log("Direction: "+dirLetter);
+
+        const isValid = letter != undefined && !isNaN(number) && dirLetter != undefined;
+
+        return { position: new position(letter, number), direction: dirLetter, isValid };
+    }
+
 
     InitializeEnemyFleet() {
         this.enemyFleet = this.InitializeFixedFleet();
