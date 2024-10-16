@@ -76,7 +76,7 @@ class Battleship {
             console.log(isHit ? cliColor.red("Yeah ! Nice hit !") : cliColor.blue("Miss"));
 
             if (this.getFleetStatus(this.enemyFleet) == "Lost") {
-                console.log(cliColor.green("Congratulations! You have won the battle!"));
+                console.log(cliColor.green("Вы победили!"));
                 break;
             }
 
@@ -103,7 +103,7 @@ class Battleship {
             }
 
             if (this.getFleetStatus(this.myFleet) == "Lost") {
-                console.log(cliColor.green("!"));
+                console.log(cliColor.green("Вы проиграли!"));
                 break;
             }
         }
