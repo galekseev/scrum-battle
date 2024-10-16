@@ -78,7 +78,37 @@ class Battleship {
             console.log(isHit ? cliColor.red("Yeah ! Nice hit !") : cliColor.blue("Miss"));
 
             if (this.getFleetStatus(this.enemyFleet) == "Lost") {
-                console.log(cliColor.green("Вы победили!"));
+//                console.log(cliColor.green("Вы победили!"));
+
+                console.log(`
+                    (\\
+/)                                       (^) 
+(^)            you win!                   ,i.
+,i.                                     __|_|__ 
+__|_|__              ^                   '_______' 
+'_______'            (^)              ,---._  |
+,%y^\\\`             ,i.             |      \`-^-.__,-.
+(/// _\\)            | |             |    ,%y^\\\`    |
+(((( -  )))           | |             |   (/// .\\))  |
+((|)_*_/(((      _____|_|_____        |  (((( ^ ))))  |
+))(/) (\\((|)    ".___________."       | (((|)_v_/((() |
+((((\\___/))(\       \\y ,--.y/          |  )))))  ()))) |
+/ ,-)     (-. \\      /,---. )\\          |/  ,   |   .  \\|
+( ( ( _, ._ ) ) )    / (((\\\\)\\ \\         /  (*   ^   *)  \\
+\\ \\ )     ( / /     \\ \\\\-_/ / /        /  /|\`--" \`--"|\\  \\
+) y       y (       \\ i   i /        / ." ,--. . ,--. ". \\
+\\(         )/        (_)=(_)      __/ /'-/(   \\ /   )\\-'\ \\__
+\\_______/           ) . (      /--.,  (  \\   y   /  )  \`.,--\\
+\\|/|  /           /\\---/\\             \\  "./  ,"  /
+/-^-/           /  )-(  \\             \`--/  /\\--"
+(   X           /  /   \\  \\              /  _) \\
+\\  \\          / ,"     ". \\            /_/  (_ \\   
+\\  y-._     / /         \\ \\                  \\_\\
+|\\,' X-'   /-)           (-\\
+_,T-)  /    / ^!           !^ \\
+(__,-%_/`);
+
+
                 break;
             }
 
@@ -198,7 +228,7 @@ class Battleship {
                     ship.addPosition(newPosition);
                 }
 
-            } while(!pos.isValid || !isInsideBoundaries || isPositionTaken);
+            } while(!pos.isValid || !isInsideBoundaries);
             
             //console.log(ship);
         }

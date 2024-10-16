@@ -1,6 +1,6 @@
 const assert = require('assert').strict;
 const gameController = require("../GameController/gameController.js");
-const letters = require("../GameController/letters.js");
+const { letters } = require("../GameController/letters.js");
 const position = require("../GameController/position.js")
 
 describe('checkIsHitTests', function () {
