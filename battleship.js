@@ -5,6 +5,7 @@ const cliColor = require('cli-color');
 const beep = require('beepbeep');
 const position = require("./GameController/position.js");
 const letters = require("./GameController/letters.js");
+const fixedFleets = require("./presetFleet.js");
 let telemetryWorker;
 
 class Battleship {
@@ -136,10 +137,7 @@ class Battleship {
 
         this.InitializeMyFleet();
 
-        const fleets = gameController.InitializeFleets();
-        let pos = Math.floor(Math.random() * gameController.PREDEFINED_FLEETS_NUM);
-        this.enemyFleet = fleets[pos];
-        // this.InitializeEnemyFleet();
+        this.enemyFleet = this.InitializeRandomFleet();
     }
 
     InitializeMyFleet() {
@@ -172,7 +170,20 @@ class Battleship {
         return fleet;
     }
 
+    InitializeRandomFleet() {
+        let fleet = gameController.InitializeShips();
 
+        let fleetNumber = Math.floor(Math.random() * (fixedFleets.length - 1));
+        for (let i = 0; i < fixedFleets[fleetNumber].length; i++) {
+            for (let j = 0; j < fixedFleets[fleetNumber][i].length; j++) {
+                fleet[i].addPosition(fixedFleets[fleetNumber][i][j]);
+            }
+        }
+
+        console.log(cliColor.yellow("Game id #" + fleetNumber));
+
+        return fleet;
+    }
 
     InitializeFixedFleet() {
         let fleet = gameController.InitializeShips();
