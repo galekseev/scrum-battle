@@ -1,3 +1,7 @@
+### version 0.3
+
+* Input validation
+
 ### version 0.2
 
 * Fixed lose/win title
