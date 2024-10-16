@@ -203,11 +203,11 @@ _,T-)  /    / ^!           !^ \\
                     continue;
                 }
 
-                // isPositionTaken = this.checkPositionTaken(pos, ship, this.myFleet);
-                // if (isPositionTaken) {
-                //     console.log(cliColor.red("Position already taken. Please try again"));
-                //     continue;
-                // }
+                isPositionTaken = this.checkPositionTaken(pos, ship, this.myFleet);
+                if (isPositionTaken) {
+                    console.log(cliColor.red("Position already taken. Please try again"));
+                    continue;
+                }
 
                 for (var i = 0; i < ship.size; i++) {
                     let newPosition = new position(pos.position.row, pos.position.column.value);
@@ -228,7 +228,7 @@ _,T-)  /    / ^!           !^ \\
                     ship.addPosition(newPosition);
                 }
 
-            } while(!pos.isValid || !isInsideBoundaries);
+            } while(!pos.isValid || !isInsideBoundaries || isPositionTaken);
             
             //console.log(ship);
         }
