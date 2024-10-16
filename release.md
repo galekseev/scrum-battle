@@ -1,3 +1,8 @@
+### version 0.2
+
+* Fixed lose/win title
+* Random pre-defined position of enemy ships
+
 ### version 0.1
 
 * Colored messages
