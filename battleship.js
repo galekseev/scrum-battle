@@ -210,7 +210,7 @@ _,T-)  /    / ^!           !^ \\
                 // }
 
                 for (var i = 0; i < ship.size; i++) {
-                    let newPosition = new position(pos.position.row, pos.position.column);
+                    let newPosition = new position(pos.position.row, pos.position.column.value);
                     switch (pos.direction) {
                         case direction.U:
                             newPosition.column = newPosition.column - i;
